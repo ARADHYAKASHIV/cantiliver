@@ -9,13 +9,13 @@ const HomePage = () => {
   const [category, setCategory] = useState('general');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  const pageSize = 50;
+  const pageSize = 100; 
 
   useEffect(() => {
     const loadNews = async () => {
       setLoading(true);
       try {
-        const data = await fetchNews(category, currentPage);
+        const data = await fetchNews(category, currentPage, pageSize);
         setArticles(data.articles);
         setTotalResults(data.totalResults);
       } catch (err) {
@@ -73,24 +73,6 @@ const HomePage = () => {
                   date={article.publishedAt}
                 />
               ))}
-            </div>
-            {/* Pagination */}
-            <div className="flex justify-center mt-8 space-x-4">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
-              >
-                Previous
-              </button>
-              <span className="self-center">Page {currentPage} of {Math.ceil(totalResults / pageSize)}</span>
-              <button
-                onClick={() => setCurrentPage((prev) => prev + 1)}
-                disabled={currentPage >= Math.ceil(totalResults / pageSize)}
-                className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
-              >
-                Next
-              </button>
             </div>
           </main>
           {/* Sidebar */}

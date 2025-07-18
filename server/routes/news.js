@@ -8,7 +8,7 @@ const axios = require('axios');
 // Fetch news from NewsAPI.org
 router.get('/', async (req, res) => {
   try {
-    const { category = 'general', page = 1, pageSize = 50 } = req.query;
+    const { category = 'general', page = 1, pageSize = 100 } = req.query;
     const response = await axios.get('https://newsapi.org/v2/top-headlines', {
       params: {
         country: 'us',
