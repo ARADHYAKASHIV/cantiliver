@@ -15,12 +15,9 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/news', require('./routes/news'));
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log("MongoDB database connection established successfully");
-})
+mongoose.connect(uri)
+  .then(() => console.log('MongoDB database connection established successfully'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
