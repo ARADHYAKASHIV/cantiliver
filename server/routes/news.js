@@ -3,11 +3,25 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const SavedArticle = require('../models/SavedArticle');
 
-// This is a placeholder for fetching news from an external API
-// You will need to implement the logic to fetch from NewsAPI.org or NY Times API
+const axios = require('axios');
+
+// Fetch news from NewsAPI.org
 router.get('/', async (req, res) => {
-  // Fetch news from external API
-  res.send({ message: 'This route will fetch news articles.' });
+  try {
+    const { category = 'general', page = 1, pageSize = 50 } = req.query;
+    const response = await axios.get('https://newsapi.org/v2/top-headlines', {
+      params: {
+        country: 'us',
+        category,
+        page,
+        pageSize,
+        apiKey: process.env.NEWS_API_KEY
+      }
+    });
+    res.json({ articles: response.data.articles, totalResults: response.data.totalResults });
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch news' });
+  }
 });
 
 // Save an article
