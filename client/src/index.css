@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+/* body {
+  cursor: pointer;
+} */
+
+/* For a more custom look, you can use a minimal SVG or PNG as a cursor: */
+/* body {
+  cursor: url('data:image/svg+xml;utf8,<svg height="24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" fill="black"/></svg>') 12 12, auto;
+} */
